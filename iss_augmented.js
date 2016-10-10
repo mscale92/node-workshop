@@ -19,18 +19,25 @@ function distanceIss(){
             var googleMapUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
             var location = googleMapUrl.concat(userInput["enter your location"]);
             
-            console.log(location);
+            
             request(location, function(err, data){
                 if(err){
                     console.log("err");
                 }
                 else{
-                    var result = JSON.parse(data.body);
-                    var mapArray = result.results;
-                    var lonLatObj = mapArray[0].geometry.location;
+                    var parsed = JSON.parse(data.body);
+                    
+                    var lonLatObj = parsed.results[0].geometry.location;
                     console.log(lonLatObj);
+                
                 }
             });
+            //end of request to google maps api
+            //the request function finds the lon and lat of the user's inputted
+            //location by using the concated string location
+            //it then parses the data
+            //then it accesses the lon and lat obj via the nested objects path
+
         }
         //we need to access the answer that the user gave us to a specific string
         //this else statement is taking the userInput value for the prompted string
@@ -42,11 +49,23 @@ function distanceIss(){
     //end of prompt function
     //the prompt function asks the user for an input, in this case the user's location
     
+    // request(location, function(err, data){
+    //     if(err){
+    //         console.log("err");
+    //     }
+    //     else{
+    //         var result = JSON.parse(data.body);
+    //         var mapArray = result.results;
+    //         var lonLatObj = mapArray[0].geometry.location;
+    //         console.log(lonLatObj);
+    //     }
+    // });
+    
 };
 //end of distanceIss function
 //calculates the distance between a user and the international space station
 
-
+distanceIss();
 
 //object.results, then an array with only one object
 //var objArray = object.results
